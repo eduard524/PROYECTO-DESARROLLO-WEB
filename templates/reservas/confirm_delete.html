@@ -1,0 +1,23 @@
+{% extends "main/base.html" %}
+{% block title %}Eliminar reserva{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+  <h1 class="mt-4">Eliminar reserva</h1>
+
+  <div class="alert alert-warning mt-3">
+    ¿Seguro que deseas eliminar la reserva del
+    <strong>{{ object.fecha_evento }}</strong> para el salón
+    <strong>{{ object.salon }}</strong> y el cliente
+    <strong>{{ object.cliente }}</strong>?
+    <br>
+    Esta acción no se puede deshacer.
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <a class="btn btn-secondary" href="{% url 'reservas:list' %}">Cancelar</a>
+    <button class="btn btn-danger" type="submit">Eliminar</button>
+  </form>
+</div>
+{% endblock %}

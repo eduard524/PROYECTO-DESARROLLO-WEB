@@ -1,0 +1,60 @@
+{% extends "main/base.html" %}
+{% block title %}Clientes{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+  <h1 class="mt-4">Clientes</h1>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Clientes</li>
+  </ol>
+
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span><i class="fas fa-users me-1"></i>Listado de clientes</span>
+      <a href="{% url 'clientes:create' %}" class="btn btn-sm btn-primary">
+        <i class="fas fa-plus"></i> Nuevo Cliente
+      </a>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Teléfono</th>
+              <th>Email</th>
+              <th>NIT</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in object_list %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ c.nombres }}</td>
+              <td>{{ c.apellidos }}</td>
+              <td>{{ c.telefono|default:"—" }}</td>
+              <td>{{ c.email|default:"—" }}</td>
+              <td>{{ c.nit|default:"—" }}</td>
+              <td>
+                <a href="{% url 'clientes:update' c.id %}" class="btn btn-sm btn-warning">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'clientes:delete' c.id %}" class="btn btn-sm btn-danger">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7" class="text-center text-muted">No hay clientes.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

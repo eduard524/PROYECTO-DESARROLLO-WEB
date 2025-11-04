@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+{% block title %}Eliminar salón{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+  <h1 class="mt-4">Eliminar salón</h1>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'salones:list' %}">Salones</a></li>
+    <li class="breadcrumb-item active">Eliminar</li>
+  </ol>
+
+  <div class="card">
+    <div class="card-body">
+      <p class="mb-4">¿Estás seguro que deseas eliminar el salón <strong>{{ object.nombre }}</strong>?</p>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
+        <a href="{% url 'salones:list' %}" class="btn btn-secondary">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

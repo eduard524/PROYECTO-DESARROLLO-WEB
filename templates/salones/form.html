@@ -1,0 +1,68 @@
+{% extends "main/base.html" %}
+{% block title %}{% if object %}Editar salón{% else %}Nuevo salón{% endif %}{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+  <h1 class="mt-4">{% if object %}Editar salón{% else %}Nuevo salón{% endif %}</h1>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'salones:list' %}">Salones</a></li>
+    <li class="breadcrumb-item active">{% if object %}Editar{% else %}Nuevo{% endif %}</li>
+  </ol>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <i class="fas fa-door-open me-1"></i>
+      {% if object %}Editar salón{% else %}Crear salón{% endif %}
+    </div>
+    <div class="card-body">
+      <form method="post" novalidate>
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <div class="mb-3">
+          <label class="form-label">{{ form.nombre.label }}</label>
+          {{ form.nombre }}
+          {% for e in form.nombre.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">{{ form.capacidad.label }}</label>
+          {{ form.capacidad }}
+          {% for e in form.capacidad.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">{{ form.precio_hora.label }}</label>
+          {{ form.precio_hora }}
+          {% for e in form.precio_hora.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">{{ form.descripcion.label }}</label>
+          {{ form.descripcion }}
+          {% for e in form.descripcion.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+        </div>
+
+        <div class="form-check mb-3">
+          {{ form.disponible }}
+          <label class="form-check-label" for="{{ form.disponible.id_for_label }}">{{ form.disponible.label }}</label>
+          {% for e in form.disponible.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+        </div>
+
+        <div class="d-flex gap-2">
+          <button class="btn btn-primary" type="submit">
+            <i class="fas fa-save"></i> Guardar
+          </button>
+          <a href="{% url 'salones:list' %}" class="btn btn-secondary">
+            Cancelar
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
